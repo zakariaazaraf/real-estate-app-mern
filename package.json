@@ -1,0 +1,36 @@
+{
+  "name": "real-estate-mern-app",
+  "version": "1.0.0",
+  "description": "This application is for the real estate business",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/zakariaazaraf/real-estate-app-mern.git"
+  },
+  "keywords": [
+    "business",
+    "real",
+    "estate",
+    "mern",
+    "rent",
+    "buy"
+  ],
+  "author": "Zakaria Azaraf",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zakariaazaraf/real-estate-app-mern/issues"
+  },
+  "homepage": "https://github.com/zakariaazaraf/real-estate-app-mern#readme",
+  "dependencies": {
+    "D": "^1.0.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.2",
+    "express": "^4.17.3",
+    "mongoose": "^6.2.9",
+    "nodemon": "^2.0.15",
+    "validation": "0.0.1"
+  }
+}
