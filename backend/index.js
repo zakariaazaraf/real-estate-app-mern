@@ -1,6 +1,25 @@
+/* If you are not on the production, Load the env variavles*/
+
+if (process.env.NODE_ENV !== 'production') {
+    // require('dotenv').load()
+    // require('dotenv').parse()
+    require('dotenv').config()
+}
+
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
+
+/* SPECIFY THE DATABASE URL LOCATION, iT'S SET LOCALLY FOR NOW. */
+console.log(process.env.DATABASE_URL)
+console.log(process.env)
+mongoose.connect(process.env.DATABASE_URL)
+
+const db = mongoose.connection
+
+db.on('error', (error) => console.log(error))
+db.once('open', () => console.log('You are connecting to the database...'))
 
 const PORT = process.env.PORT || 3000
 
