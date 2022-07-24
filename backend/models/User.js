@@ -11,9 +11,9 @@ const userSchema = mongoose.Schema(
         isAdmin: { type: Boolean, default: fasle },
         avatarImage: { type: String },
         created: { type: Date, default: Date.now() },
-        createdBy: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' },
+        createdBy: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User', default: 0 },
         lastModified: { type: Date, default: Date.now() },
-        lastModifiedBy: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' },  
+        lastModifiedBy: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User', default: 0 },  
     }
 )
 

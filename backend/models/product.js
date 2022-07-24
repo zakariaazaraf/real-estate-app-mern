@@ -7,16 +7,17 @@ const productSchema = mongoose.Schema(
         description: {type: String, require: true},
         price: {type: Number, require: true},
         discount: {type: Number, default: 0},
-        image: {type: String, require: true},
+        /* Store the image in the DB for now, Later on, It would be much better to store them using ws3 */
+        image: {type: Buffer, require: true},
         images: [
             {type: String}
         ],
         createdDate:{ type: Date, required: true, default: Date.now() },
         createdBy: {type: mongoose.Schema.Types.ObjectId, require: true, ref: 'User'},
         lastModified: {type: Date, required: true, default: Date.now()},
-        lastModifiedBy: {type: ObjectId, require: true, ref: 'User'}
+        lastModifiedBy: {type: mongoose.Schema.Types.ObjectId, require: true, ref: 'User'}
 
     }
 )
 
-module.exports = mongoose.modle('Product', productSchema)
+module.exports = mongoose.model('Product', productSchema)
