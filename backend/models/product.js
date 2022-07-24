@@ -8,7 +8,10 @@ const productSchema = mongoose.Schema(
         price: {type: Number, require: true},
         discount: {type: Number, default: 0},
         /* Store the image in the DB for now, Later on, It would be much better to store them using ws3 */
-        image: {type: Buffer, require: true},
+        image: {
+            data: {type: Buffer, require: true},
+            contentType: {type: String, require: true}
+        },
         images: [
             {type: String}
         ],

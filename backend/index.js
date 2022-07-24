@@ -11,7 +11,10 @@ const app = express()
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const multer = require('multer')
-const upload = multer( {dest:'./upload/'} )
+// const upload = multer( {dest:'./upload/'} )
+
+const multerStorage = multer.memoryStorage();
+const upload = multer({ storage: multerStorage});
 
 const path = require('path');
 
@@ -68,14 +71,12 @@ app.post('/product', upload.single('myFile'), async (req, res) => {
         description : description,
         price : price,
         discount : discount,
-        image : '',
+        image : {
+            data: new Buffer.from(req.file.buffer, 'base64'),
+            contentType: req.file.mimetype
+        },
         images : []
     })
-
-    // console.log(req)    
-    console.log(req.body)    
-    console.log(req.file)
-    
 
     try {
         const isCreated = await product.save()
@@ -94,17 +95,31 @@ app.post('/product', upload.single('myFile'), async (req, res) => {
         }).status(404)
     }
 
-    // if (coverEncoded == null) return
-    // const cover = JSON.parse(coverEncoded)
-    // if (cover != null && imageMimeTypes.includes(cover.type)) {
-    //   product.coverImage = new Buffer.from(cover.data, 'base64')
-    //   product.coverImageType = cover.type
-    // }
-
     res.json({
         message: `The product has been created successfully!`,
         status: 200
     }).status(200)
+})
+
+app.get('/getImage/:id', async (req, res) => {
+    const { id } = req.params
+
+    const product = await Product.findById({ _id: id }).exec()
+
+
+    if (!product) {
+        res.json({
+            message: `We couldn't find the product with the ID: ${id}`
+        }).status(201)
+        return
+    }
+
+    const {data, contentType} = product.image
+
+    /* generate the image src from the returned buffer. */
+    let imageSrc = `data:${contentType};charset=utf-8;base64,${data.toString('base64')}`;
+
+    res.send(`<img src=${imageSrc} />`).status(200)
 })
 
 
