@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+    <head>
+        <title>Creating a new product</title>
+    </head>
+    <body>
+        <form action='/product' method='POST' enctype='multipart/form-data' >
+            <label for='title'>The product title</label>
+            <input type='text' name='title' id='title' />
+            <br />
+            <label for='description'>The product description</label>
+            <input type='text' name='description' id='description' />
+            <br />
+            <label for='price'>The product price</label>
+            <input type='number' name='price' id='price' />
+            <br />
+            <label for='discount'>The product discount</label>
+            <input type='number' name='discount' id='discount' />
+            <br />
+            <label for='myFile'>The product image</label>
+            <input type='file' name='myFile' id='image' />
+            <br /><br />
+            <input type='submit' value='submit' name='submit'/>
+        </form>
+    </body>
+</html>

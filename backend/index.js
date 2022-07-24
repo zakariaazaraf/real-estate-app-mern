@@ -10,6 +10,10 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+const multer = require('multer')
+const upload = multer( {dest:'./upload/'} )
+
+const path = require('path');
 
 /* Models */
 const Product = require('./models/Product')
@@ -24,8 +28,10 @@ db.once('open', () => console.log('You are connecting to the database...'))
 
 const PORT = process.env.PORT || 3000
 
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+// app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: true }))
+// app.use(upload.array())
+app.use(express.json())
 
 app.use(express.static('public'))
 
@@ -36,10 +42,9 @@ app.get('/', (req, res) =>{
 })
 
 app.post('/api', (req, res) =>{
-    console.log(req)
     console.log('You reqested this route, POST method')
-    alert(`You've visted this page`)
     // res.send('Hello, You are using express application ...')
+    res.status(200)
 })
 
 app.get('/home', (req, res) =>{
@@ -48,51 +53,30 @@ app.get('/home', (req, res) =>{
 
 
 app.get('/products', async (req, res) => {
-    res.send(`
-        <!DOCTYPE html>
-            <head>
-                <title>Creating a new product</title>
-            </head>
-            <body>
-                <form action='/product' method='POST' enctype='multipart/form-data'>
-                    <label for='title'>The product title</label>
-                    <input type='text' name='title' id='title' />
-                    <br />
-                    <label for='description'>The product description</label>
-                    <input type='text' name='description' id='description' />
-                    <br />
-                    <label for='price'>The product price</label>
-                    <input type='number' name='price' id='price' />
-                    <br />
-                    <label for='discount'>The product discount</label>
-                    <input type='number' name='discount' id='discount' />
-                    <br />
-                    <label for='image'>The product image</label>
-                    <input type='file' name='image' id='image' />
-                    <br /><br />
-                    <input type='submit' value='submit' name='submit'/>
-                    <input type='cancel' value='cancel' name='cancel'/>
-                </form>
-            </body>
-        </html>
-    `)
+    res.sendFile(`${path.join(__dirname)}/render.html`)
 })
 
-app.post('/product', async (req, res) => {
+app.post('/product', upload.single('myFile'), async (req, res) => {
     
-    console.log(req.body)
     // console.log(req.files)
     // console.log(req)
+
+    const { title, description, price, discount } = req.body
+
     const product = new Product({
-        title : 'This the product title',
-        description : 'This the product description',
-        price : 22.99,
-        discount : 5,
+        title : title,
+        description : description,
+        price : price,
+        discount : discount,
         image : '',
         images : []
     })
 
+    // console.log(req)    
+    console.log(req.body)    
+    console.log(req.file)
     
+
     try {
         const isCreated = await product.save()
         console.log(isCreated)
@@ -117,7 +101,10 @@ app.post('/product', async (req, res) => {
     //   product.coverImageType = cover.type
     // }
 
-    res.send('Hello, You are on PRODUCTS')
+    res.json({
+        message: `The product has been created successfully!`,
+        status: 200
+    }).status(200)
 })
 
 
@@ -126,7 +113,6 @@ app.get('/category', (req, res) =>{
 })
 
 app.get('*', (req, res) =>{
-    console.log(req.body)
     res.send('Hello, You did not found the requested page')
 })
 
