@@ -7,6 +7,7 @@ import { Products } from './components/Products'
 import { Categories } from './components/Categories'
 import { Product } from './components/Product'
 import { Category } from './components/Category'
+import { Image } from './components/Image.js'
 import { NotFound } from './components/NotFound'
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path='/categories' element={<Categories />}/>
         <Route path='/product/:productId' element={<Product />}/>
         <Route path='/category/:categoryId' element={<Category />}/>
+        <Route path='/images/:imageId' element={<Image />}/>
         <Route path='/*' element={<NotFound />}/>
       </Routes>
   </Router>
