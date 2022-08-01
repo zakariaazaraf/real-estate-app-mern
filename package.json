@@ -1,0 +1,28 @@
+{
+  "name": "zakaria",
+  "version": "1.0.0",
+  "description": "this an application for the real estate market",
+  "main": "./backend/index.js",
+  "scripts": {
+    "start": "node ./server/server",
+    "server": "nodemon ./server/server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zakariaazaraf/real-estate-app-mern.git"
+  },
+  "author": "zakaria azaraf",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zakariaazaraf/real-estate-app-mern/issues"
+  },
+  "homepage": "https://github.com/zakariaazaraf/real-estate-app-mern#readme",
+  "dependencies": {
+    "concurrently": "^7.3.0",
+    "express": "^4.18.1",
+    "nodemon": "^2.0.19"
+  }
+}

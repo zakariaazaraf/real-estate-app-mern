@@ -22,14 +22,14 @@ const path = require('path');
 const Product = require('./models/Product')
 
 /* SPECIFY THE DATABASE URL LOCATION, iT'S SET LOCALLY FOR NOW. */
-mongoose.connect(process.env.DATABASE_URL)
+// mongoose.connect(process.env.DATABASE_URL)
 
-const db = mongoose.connection
+// const db = mongoose.connection
 
-db.on('error', (error) => console.log(error))
-db.once('open', () => console.log('You are connecting to the database...'))
+// db.on('error', (error) => console.log(error))
+// db.once('open', () => console.log('You are connecting to the database...'))
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 5000
 
 // app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.urlencoded({ extended: true }))
