@@ -1,25 +1,25 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Home } from './components/Home'
+import { Products } from './components/Products'
+import { Categories } from './components/Categories'
+import { Product } from './components/Product'
+import { Category } from './components/Category'
+import { NotFound } from './components/NotFound'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  return <Router>
+      <Routes>
+        <Route path='/' element={<Home />}/>
+        <Route path='/products' element={<Products />}/>
+        <Route path='/categories' element={<Categories />}/>
+        <Route path='/product/:productId' element={<Product />}/>
+        <Route path='/category/:categoryId' element={<Category />}/>
+        <Route path='/*' element={<NotFound />}/>
+      </Routes>
+  </Router>
 }
 
 export default App;
